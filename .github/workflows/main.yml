@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-kernel:
+    name: Build Kernel
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Build
+        uses: dabao1955/kernel_build_action@main
+        with:
+          kernel-url: https://github.com/KanishkTheDerp/msm-4.9
+          kernel_dir: msm-4.9
+          branch: ksu/main
+          config: b1c1_defconfig
+          arch: arm64
+          aosp-gcc: true
+          other-clang-url: https://gitlab.com/VoltageOS/clang
+          other-clang-branch: test
+          extra-cmd: AR=llvm-ar \
+                     NM=llvm-nm \
+                     LD=ld.lld \
+                     STRIP=llvm-strip \
+                     OBJCOPY=llvm-objcopy \
+                     OBJDUMP=llvm-objdump \
+                     OBJSIZE=llvm-size \
+                     READELF=llvm-readelf \
+          python-2.7: true
+          android-version: 14
+          release: true
+         
